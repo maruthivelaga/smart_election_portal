@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Elections - Help Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --gray: #95a5a6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--secondary);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        /* Help Sections */
+        .help-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .help-card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .help-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .help-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .help-card h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .help-card p {
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .help-card a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .help-card a i {
+            font-size: 1rem;
+            margin-left: 5px;
+            color: inherit;
+        }
+
+        /* FAQ Accordion */
+        .faq-section {
+            background: white;
+            border-radius: 8px;
+            padding: 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section-header h2 {
+            color: var(--secondary);
+            font-size: 1.4rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #eee;
+        }
+
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .faq-question:hover {
+            background: #f9f9f9;
+        }
+
+        .faq-question i {
+            color: var(--primary);
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            color: var(--dark);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 20px 20px;
+            max-height: 500px;
+        }
+
+        /* Contact Card */
+        .contact-card {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .contact-card h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .contact-card p {
+            color: var(--dark);
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .contact-method:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .contact-method i {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .help-sections {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Help Center</h1>
+        <p>Find answers to common questions about the campus election process, voting guidelines, and troubleshooting assistance.</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-bar" placeholder="Search help articles...">
+        </div>
+
+        <!-- Help Sections -->
+        <div class="help-sections">
+            <div class="help-card">
+                <i class="fas fa-user-check"></i>
+                <h3>Voter Guidelines</h3>
+                <p>Learn about the voting process, eligibility requirements, and how to cast your ballot securely.</p>
+                <a href="#voter-guidelines">View voter guide <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="help-card">
+                <i class="fas fa-users"></i>
+                <h3>Candidate Information</h3>
+                <p>Information for candidates about nominations, campaigning rules, and election procedures.</p>
+                <a href="#candidate-info">Candidate resources <i class="fas fa-chevron-right"></i></a>
+            </div>
+
+            <div class="help-card">
+                <i class="fas fa-tools"></i>
+                <h3>Troubleshooting</h3>
+                <p>Solutions to common technical issues and problems you might encounter during elections.</p>
+                <a href="#troubleshooting">Get help <i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Voter Guidelines FAQ -->
+        <div class="faq-section" id="voter-guidelines">
+            <div class="section-header">
+                <h2><i class="fas fa-user-check"></i> Voter Guidelines</h2>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Who is eligible to vote in campus elections?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>All currently enrolled students with a valid student ID are eligible to vote in campus elections. You must be registered for classes in the current semester and have no outstanding disciplinary actions against you.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I verify my voter eligibility?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can verify your eligibility by logging into the campus election portal with your student credentials. The system will automatically check your enrollment status and display your voting eligibility.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is the voting period?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>The voting period typically lasts for 48 hours. Exact dates and times are announced at least two weeks in advance through official campus channels. Once the voting period ends, no further votes can be cast.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Can I change my vote after submitting?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>No, votes are final once submitted. The system is designed to prevent any changes after submission to maintain election integrity. Please review your selections carefully before finalizing your vote.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Candidate Information FAQ -->
+        <div class="faq-section" id="candidate-info">
+            <div class="section-header">
+                <h2><i class="fas fa-users"></i> Candidate Information</h2>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I submit my nomination?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Nominations must be submitted through the official campus election portal during the designated nomination period. You'll need to complete the nomination form, upload a profile photo, and provide a brief manifesto.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What are the campaign rules?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Campaigning must adhere to campus policies. Key rules include: no defamation of opponents, no campaigning within 50 feet of polling stations, all campaign materials must be approved, and digital campaigning must follow social media guidelines.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>When will election results be announced?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Results are typically announced within 24 hours after voting closes. All candidates will receive notification before the public announcement. Official results are posted on the campus election website.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Troubleshooting FAQ -->
+        <div class="faq-section" id="troubleshooting">
+            <div class="section-header">
+                <h2><i class="fas fa-tools"></i> Troubleshooting</h2>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>I can't log in to vote. What should I do?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>First, ensure you're using your correct campus credentials. If you've forgotten your password, use the password reset tool. If issues persist, contact the IT help desk with your student ID and a description of the error message you're receiving.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>The voting page isn't loading properly. How can I fix this?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Try these steps: 1) Refresh the page, 2) Clear your browser cache, 3) Try a different browser, 4) Check your internet connection. If the problem continues, try accessing the voting portal from a different device or campus computer.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>I received an error message after submitting my vote. Did my vote count?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>The system provides a confirmation message when your vote is successfully recorded. If you received an error, your vote may not have been processed. Try voting again. The system prevents duplicate voting, so your original vote will still count if it was received.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>How do I report election irregularities?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Any concerns about election integrity should be reported immediately to the Election Committee via email at elections@campus.edu or in person at the Student Affairs office. Please provide as much detail as possible about the incident.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Card -->
+        <div class="contact-card">
+            <h2>Still need help?</h2>
+            <p>Our election support team is available to assist you with any questions or issues not covered in our help center.</p>
+            <div class="contact-methods">
+                <a href="mailto:elections@campus.edu" class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email Us</span>
+                </a>
+                <a href="tel:+18005551234" class="contact-method">
+                    <i class="fas fa-phone"></i>
+                    <span>Call Support</span>
+                </a>
+                <a href="#" class="contact-method">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Visit Office</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // FAQ Accordion Functionality
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Close all other items
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+
+            // Search Functionality
+            const searchBar = document.querySelector('.search-bar');
+            
+            searchBar.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                if (searchTerm.length > 2) {
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                        const answer = item.querySelector('.faq-answer p').textContent.toLowerCase();
+                        
+                        if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                            item.style.display = '';
+                            item.classList.add('active'); // Open matching items
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                } else {
+                    // Reset if search term is too short or empty
+                    faqItems.forEach(item => {
+                        item.style.display = '';
+                        item.classList.remove('active');
+                    });
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 20,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

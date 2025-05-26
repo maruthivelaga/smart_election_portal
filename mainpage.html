@@ -1,0 +1,1031 @@
+<html lang="en"><head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>CampusVote - Smart Digital Election Platform</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="mystyle.css">
+            <!-- Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-V9KR8WDL1J"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-V9KR8WDL1J');
+            </script>
+            </head>
+    <body>
+        <header>
+            <div class="container header-container">
+              <div class="logo-container">
+                <div class="logo">Campus<span>Vote</span></div>
+              </div>
+          
+              <nav>
+                <ul class="nav-links">
+                  <li><a href="#home">Home</a></li>
+                  <li><a href="#elections">Elections</a></li>
+                  <li><a href="#candidates">Candidates</a></li>
+                  <li><a href="#results">Results</a></li>
+                  <li><a href="#feedback">Feedback</a></li>
+
+                </ul>
+          
+                <!-- Auth Buttons -->
+                <div class="auth-buttons">
+                  <a href="login.html" class="btn btn-secondary">Logout</a>
+                  <a href="user.html" class="btn btn-primary">User</a>
+                </div>
+                <!-- Theme Toggle Button (should be outside of auth-buttons or clearly styled) -->
+                <button type="button" class="toggle-theme" id="theme-toggle">
+                  <i class="fas fa-moon"></i>
+                </button>
+              </nav>
+            </div>
+          </header>
+          <div style="background: linear-gradient(90deg, #97060b 0%, #531d0e 50%, #5b0944 100%); padding: 12px 0; border-radius: 8px; margin: 20px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+            <marquee 
+              behavior="scroll" 
+              direction="left" 
+              scrollamount="6"
+              style="font-family: 'Inter', sans-serif; font-weight: 600; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); cursor: pointer;"
+              onclick="window.location.href='announcements.html'">
+              
+              <span style="background-color: #8e44ad; padding: 5px 10px; border-radius: 20px; margin-right: 15px;">✨ New!</span>
+              Election results will be announced on June 15th at 3PM in the Student Center
+              
+              <span style="background-color: #e74c3c; padding: 5px 10px; border-radius: 20px; margin: 0 15px;">❗ Important</span>
+              Last day to submit nominations for Cultural Committee is June 10th
+              
+              <span style="background-color: #2ecc71; padding: 5px 10px; border-radius: 20px; margin: 0 15px;">📢 Notice</span>
+              Voting platform maintenance scheduled for June 8th 2AM-4AM
+              
+              <span style="background-color: #3498db; padding: 5px 10px; border-radius: 20px; margin-left: 15px;">🏆 Results</span>
+              Debate Club election results now available - click here to view!
+            </marquee>
+          </div>
+          
+    <main>
+    <section class="hero" id="home">
+    <div class="container hero-content">
+    <div class="hero-text">
+    <h1>Smart Digital Election Platform</h1>
+    <p>A secure, transparent, and efficient way to conduct campus elections. Participate in elections for student bodies, cultural clubs, and academic organizations digitally - anytime, anywhere.</p>
+    <div class="hero-buttons">
+    <a class="btn btn-secondary btn-lg" href="#elections">Explore Elections</a>
+    <a class="btn btn-outline btn-lg" href="#candidates" style="color: white; margin-left: 1rem;">View Candidates</a>
+    </div>
+    </div>
+    <div class="hero-image">
+      <a href="voteesedi.html">
+        <img src="iuy.jpg" alt="Click to open page" style="cursor: pointer;">
+    </a>
+    </div>
+    </div>
+    <!-- Add this inside your <body> tag, preferably near the top of the page -->
+
+
+<!-- JavaScript to handle the click and redirect -->
+<script>
+document.querySelector('marquee').addEventListener('click', function() {
+  window.location.href = "Announcements.html";
+});
+</script>
+    </section>
+    <section class="features">
+    <div class="container">
+    <div class="section-header">
+    <h2>Why Choose Digital Elections?</h2>
+    <p>Our platform revolutionizes the way campus elections are conducted</p>
+    </div>
+    <div class="features-grid">
+    <div class="feature-card">
+    <div class="feature-icon">
+    <i class="fas fa-shield-alt"></i>
+    </div>
+    <h3 class="feature-title">Secure Voting</h3>
+    <p>State-of-the-art encryption and authentication ensures your vote remains confidential and tamper-proof.</p>
+    </div>
+    <div class="feature-card">
+    <div class="feature-icon">
+    <i class="fas fa-chart-bar"></i>
+    </div>
+    <h3 class="feature-title">Real-time Results</h3>
+    <p>Watch results unfold in real-time with dynamic visualizations once the election period ends.</p>
+    </div>
+    <div class="feature-card">
+    <div class="feature-icon">
+    <i class="fas fa-mobile-alt"></i>
+    </div>
+    <h3 class="feature-title">Vote Anywhere</h3>
+    <p>Cast your vote conveniently from any device - mobile, tablet, or computer.</p>
+    </div>
+    <div class="feature-card">
+    <div class="feature-icon">
+    <i class="fas fa-users"></i>
+    </div>
+    <h3 class="feature-title">Fair Representation</h3>
+    <p>Equal opportunity for all candidates with standardized profiles and manifesto display.</p>
+    </div>
+    <div class="feature-card">
+    <div class="feature-icon">
+    <i class="fas fa-comments"></i>
+    </div>
+    <h3 class="feature-title">Feedback System</h3>
+    <p>Share your thoughts about clubs and election processes to help improve the campus community.</p>
+    </div>
+    <div class="feature-card">
+    <div class="feature-icon">
+    <i class="fas fa-paper-plane"></i>
+    </div>
+    <h3 class="feature-title">Easy Nominations</h3>
+    <p>Submit your candidacy online with a simple form - no paperwork, no hassle.</p>
+    </div>
+    </div>
+    </div>
+    </section>
+    <section class="dashboard-section" id="elections">
+    <div class="container">
+    <div class="section-title">
+       <!-- Filters -->
+<h2>Ongoing Elections</h2>
+<div class="filters">
+  <select id="orgFilter" class="form-control filter-select">
+    <option value="all">All Organizations</option>
+    <option value="sac">Student Activity Council</option>
+    <option value="ncc">National Cadet Corps</option>
+    <option value="nss">National Service Scheme</option>
+    <option value="cultural">Cultural Clubs</option>
+    <option value="academic">Academic Clubs</option>
+  </select>
+
+  <select id="statusFilter" class="form-control filter-select">
+    <option value="all">All Statuses</option>
+    <option value="active">Active</option>
+    <option value="upcoming">Upcoming</option>
+    <option value="completed">Completed</option>
+  </select>
+</div>
+
+<!-- Elections -->
+<div class="elections-grid">
+
+  <div class="election-card" data-org="sac" data-status="active">
+    <div class="election-header">
+      <span class="election-status status-active">Active</span>
+      <h3>Student Activity Council</h3>
+    </div>
+    <div class="election-body">
+      <div class="election-info">
+        <p><i class="fas fa-user-tie"></i> Position: President</p>
+        <p><i class="fas fa-calendar-alt"></i> Ends: June 15, 2023</p>
+        <p><i class="fas fa-users"></i> Candidates: 4</p>
+        <p><i class="fas fa-poll"></i> Votes Cast: 258</p>  
+      </div>
+      <p>Choose the next SAC President who will represent student interests and organize campus-wide events.</p>
+    </div>
+    <div class="election-footer">
+      <button class="btn btn-sm btn-outline" onclick="viewCandidates()">View Candidates</button>
+      <a href="voter.html">Vote Now</button>
+    </div>
+  </div>
+
+  <div class="election-card" data-org="cultural" data-status="active">
+    <div class="election-header">
+      <span class="election-status status-active">Active</span>
+      <h3>Cultural Committee</h3>
+    </div>
+    <div class="election-body">
+      <div class="election-info">
+        <p><i class="fas fa-user-tie"></i> Position: Secretary</p>
+        <p><i class="fas fa-calendar-alt"></i> Ends: June 10, 2023</p>
+        <p><i class="fas fa-users"></i> Candidates: 3</p>
+        <p><i class="fas fa-poll"></i> Votes Cast: 189</p>
+      </div>
+      <p>Select the Cultural Committee Secretary who will lead the planning of cultural events and festivals.</p>
+    </div>
+    <div class="election-footer">
+      <button class="btn btn-sm btn-outline" onclick="viewCandidates()">View Candidates</button>
+      <button class="btn btn-sm btn-primary" onclick="openVotingModal()">Vote Now</button>
+    </div>
+  </div>
+
+  <div class="election-card" data-org="nss" data-status="upcoming">
+    <div class="election-header">
+      <span class="election-status status-upcoming">Upcoming</span>
+      <h3>National Service Scheme</h3>
+    </div>
+    <div class="election-body">
+      <div class="election-info">
+        <p><i class="fas fa-user-tie"></i> Position: Coordinator</p>
+        <p><i class="fas fa-calendar-alt"></i> Starts: June 20, 2023</p>
+        <p><i class="fas fa-users"></i> Candidates: 5</p>
+        <p><i class="fas fa-hourglass-half"></i> Status: Nomination Phase</p>
+      </div>
+      <p>The NSS coordinator will oversee community service projects and social awareness campaigns.</p>
+    </div>
+    <div class="election-footer">
+      <button class="btn btn-sm btn-outline" onclick="viewCandidates()">View Candidates</button>
+      <button class="btn btn-sm btn-secondary" onclick="openNominationModal()">Submit Nomination</button>
+    </div>
+  </div>
+
+  <div class="election-card" data-org="academic" data-status="completed">
+    <div class="election-header">
+      <span class="election-status status-completed">Completed</span>
+      <h3>Computer Science Club</h3>
+    </div>
+    <div class="election-body">
+      <div class="election-info">
+        <p><i class="fas fa-user-tie"></i> Position: Technical Lead</p>
+        <p><i class="fas fa-calendar-alt"></i> Ended: June 1, 2023</p>
+        <p><i class="fas fa-users"></i> Candidates: 3</p>
+        <p><i class="fas fa-poll"></i> Votes Cast: 124</p>
+      </div>
+      <p>The election for the CS Club Technical Lead has concluded. View results to see who won.</p>
+    </div>
+    <div class="election-footer">
+      <button class="btn btn-sm btn-outline" onclick="viewCandidates()">View Candidates</button>
+      <button class="btn btn-sm btn-primary" onclick="viewResults()">View Results</button>
+    </div>
+  </div>
+
+</div>
+
+        </section>
+        <section class="dashboard-section" id="candidates">
+        <div class="container">
+        <div class="section-title">
+        <h2>Featured Candidates</h2>
+        <a href="nomi.html" class="btn btn-outline" >Submit Your Nomination</a>
+        </div>
+        <div class="candidates-grid">
+        <div class="candidate-card">
+        <img alt="Candidate" class="candidate-image" src="can1.jpg"/>
+        <div class="candidate-info">
+        <h3 class="candidate-name">Sarah Johnson</h3>
+        <p class="candidate-position">SAC Pre   sident</p>
+        <p class="candidate-bio">Computer Science major with a passion for student advocacy. Committed to increasing transparency and student involvement in university decisions.</p>
+        <div class="candidate-tags">
+        <span class="badge badge-primary">Leadership</span>
+        <span class="badge badge-secondary">Advocacy</span>
+        </div>
+        </div>
+        <div class="candidate-footer">
+        <!-- Inside candidate-card -->
+        <a href = manefesto.html>View Manifesto </a>
+
+        </div>
+        </div>
+        <div class="candidate-card">
+        <img alt="Candidate" class="candidate-image" src="can2.jpg"/>
+        <div class="candidate-info">
+        <h3 class="candidate-name">Michael Chen</h3>
+        <p class="candidate-position">Cultural Secretary</p>
+        <p class="candidate-bio">Arts major with experience organizing campus festivals. Aims to promote cultural diversity and inclusive events for all students.</p>
+        <div class="candidate-tags">
+        <span class="badge badge-primary">Event Planning</span>
+        <span class="badge badge-secondary">Diversity</span>
+        </div>
+        </div>
+        <div class="candidate-footer">
+          <a href = manefesto.html>View Manifesto </a>
+        </div>
+        </div>
+        <div class="candidate-card">
+        <img alt="Candidate" class="candidate-image" src="can3.jpg"/>
+        <div class="candidate-info">
+        <h3 class="candidate-name">James Wilson</h3>
+        <p class="candidate-position">NSS Coordinator</p>
+        <p class="candidate-bio">Social Work student dedicated to community service. Plans to expand NSS activities and create more volunteering opportunities.</p>
+        <div class="candidate-tags">
+        <span class="badge badge-primary">Community Service</span>
+  
+        <span class="badge badge-secondary">Social Impact</span>
+        </div>
+        </div>
+        <div class="candidate-footer">
+          <a href = manefesto.html>View Manifesto </a>
+
+        </div>
+        </div>
+        <div class="candidate-card">
+        <img alt="Candidate" class="candidate-image" src="can4.jpg"/>
+        <div class="candidate-info">
+        <h3 class="candidate-name">Priya Patel</h3>
+        <p class="candidate-position">CS Club Technical Lead</p>
+        <p class="candidate-bio">Computer Engineering student with industry internship experience. Planning workshops and hackathons to build technical skills.</p>
+        <div class="candidate-tags">
+        <span class="badge badge-primary">Technical</span>
+        <span class="badge badge-secondary">Education</span>
+        </div>
+        </div>
+        <div class="candidate-footer">
+          <a href = manefesto.html>View Manifesto </a>
+        </div>
+        </div>
+        </div>
+        </div>
+        </section>
+        <section class="dashboard-section" id="results">
+          <div class="container">
+              <div class="section-title">
+                  <h2>Election Results</h2>
+                  <select class="form-control filter-select" id="orgFilter">
+                      <option value="all">All Organizations</option>
+                      <option value="sac">Student Activity Council</option>
+                      <option value="ncc">National Cadet Corps</option>
+                      <option value="nss">National Service Scheme</option>
+                      <option value="cultural">Cultural Clubs</option>
+                      <option value="academic">Academic Clubs</option>
+                  </select>
+              </div>
+              
+              <div class="results-container">
+                  <!-- Computer Science Club Card -->
+                  <div class="result-card" data-org="academic">
+                      <div class="result-header">
+                          <h3>Computer Science Club - Technical Lead Election</h3>
+                          <p>Election ended on June 1, 2023 with 124 total votes</p>
+                      </div>
+                      <div class="chart-container">
+                          <div class="result-chart">
+                              <canvas id="csClubPieChart"></canvas>
+                          </div>
+                          <div class="result-chart">
+                              <canvas id="csClubBarChart"></canvas>
+                          </div>
+                      </div>
+                      <div class="result-details">
+                          <div class="result-item">
+                              <div class="result-color" style="background-color: #4c6ef5;"></div>
+                              <div class="result-name">James Wilson</div>
+                              <div class="result-votes">65 votes (52%)</div>
+                          </div>
+                          <div class="result-item">
+                              <div class="result-color" style="background-color: #fa5252;"></div>
+                              <div class="result-name">Amanda Lee</div>
+                              <div class="result-votes">42 votes (34%)</div>
+                          </div>
+                          <div class="result-item">
+                              <div class="result-color" style="background-color: #51cf66;"></div>
+                              <div class="result-name">David Thompson</div>
+                              <div class="result-votes">17 votes (14%)</div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- Debate Club Card -->
+                  <div class="result-card" data-org="cultural">
+                      <div class="result-header">
+                          <h3>Debate Club - President Election</h3>
+                          <p>Election ended on May 25, 2023 with 78 total votes</p>
+                      </div>
+                      <div class="chart-container">
+                          <div class="result-chart">
+                              <canvas id="debateClubPieChart"></canvas>
+                          </div>
+                          <div class="result-chart">
+                              <canvas id="debateClubBarChart"></canvas>
+                          </div>
+                      </div>
+                      <div class="result-details">
+                          <div class="result-item">
+                              <div class="result-color" style="background-color: #4c6ef5;"></div>
+                              <div class="result-name">Emily Roberts</div>
+                              <div class="result-votes">45 votes (58%)</div>
+                          </div>
+                          <div class="result-item">
+                              <div class="result-color" style="background-color: #fa5252;"></div>
+                              <div class="result-name">Mark Stevenson</div>
+                              <div class="result-votes">33 votes (42%)</div>
+                          </div>
+                      </div>
+                  </div>
+                  
+                  <!-- Additional NCC Card (example) -->
+                  <div class="result-card" data-org="ncc">
+                      <div class="result-header">
+                          <h3>NCC - Unit Leader Election</h3>
+                          <p>Election ended on May 30, 2023 with 92 total votes</p>
+                      </div>
+                      <div class="chart-container">
+                          <div class="result-chart">
+                              <canvas id="nccClubPieChart"></canvas>
+                          </div>
+                          <div class="result-chart">
+                              <canvas id="nccClubBarChart"></canvas>
+                          </div>
+                      </div>
+                      <div class="result-details">
+                          <div class="result-item">
+                              <div class="result-color" style="background-color: #4c6ef5;"></div>
+                              <div class="result-name">Rajesh Kumar</div>
+                              <div class="result-votes">58 votes (63%)</div>
+                          </div>
+                          <div class="result-item">
+                              <div class="result-color" style="background-color: #fa5252;"></div>
+                              <div class="result-name">Priya Sharma</div>
+                              <div class="result-votes">34 votes (37%)</div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </section>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Filter functionality
+    const orgFilter = document.getElementById('orgFilter');
+    const resultCards = document.querySelectorAll('.result-card');
+    
+    orgFilter.addEventListener('change', function() {
+        const selectedOrg = this.value;
+        
+        resultCards.forEach(card => {
+            if (selectedOrg === 'all' || card.dataset.org === selectedOrg) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+    
+    // Initialize charts
+    createPieChart('csClubPieChart', ['James Wilson', 'Amanda Lee', 'David Thompson'], [65, 42, 17], ['#4c6ef5', '#fa5252', '#51cf66']);
+    createBarChart('csClubBarChart', ['James Wilson', 'Amanda Lee', 'David Thompson'], [65, 42, 17], ['#4c6ef5', '#fa5252', '#51cf66'], 'Votes Distribution');
+    
+    createPieChart('debateClubPieChart', ['Emily Roberts', 'Mark Stevenson'], [45, 33], ['#4c6ef5', '#fa5252']);
+    createBarChart('debateClubBarChart', ['Emily Roberts', 'Mark Stevenson'], [45, 33], ['#4c6ef5', '#fa5252'], 'Votes Distribution');
+    
+    createPieChart('nccClubPieChart', ['Rajesh Kumar', 'Priya Sharma'], [58, 34], ['#4c6ef5', '#fa5252']);
+    createBarChart('nccClubBarChart', ['Rajesh Kumar', 'Priya Sharma'], [58, 34], ['#4c6ef5', '#fa5252'], 'Votes Distribution');
+    
+    function createPieChart(canvasId, labels, data, colors) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    data: data,
+                    backgroundColor: colors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const value = context.raw;
+                                const percentage = Math.round((value / total) * 100);
+                                return `${context.label}: ${value} votes (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    function createBarChart(canvasId, labels, data, colors, title) {
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Votes',
+                    data: data,
+                    backgroundColor: colors,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: title,
+                        font: {
+                            size: 14
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return `${context.parsed.y} votes`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10
+                        }
+                    }
+                }
+            }
+        });
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const tabs = document.querySelectorAll(".tab");
+    const tabContents = document.querySelectorAll(".tab-content");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", function () {
+        // Remove active class from all tabs and contents
+        tabs.forEach((t) => t.classList.remove("active"));
+        tabContents.forEach((content) => content.classList.remove("active"));
+
+        // Add active class to the clicked tab
+        this.classList.add("active");
+
+        // Show corresponding tab content
+        const targetId = this.getAttribute("data-tab") + "-content";
+        document.getElementById(targetId).classList.add("active");
+      });
+    });
+  });
+</script>
+    <section class="dashboard-section" id="feedback">
+    <div class="container">
+    <div class="section-title">
+    <h2>Feedback &amp; Suggestions</h2>
+    </div>
+    <div class="tabs">  
+    <div class="tab active" data-tab="give-feedback">Give Feedback</div>
+    <div class="tab" data-tab="view-feedback">View Public Feedback</div>
+    </div>
+    <div class="tab-content active" id="give-feedback-content">
+    <div class="feedback-form">
+    <form data-form-type="officeiq-lead" id="feedbackForm">
+    <div class="form-group">
+    <label class="form-label" for="feedback-type">Feedback Type</label>
+    <select class="form-select" id="feedback-type" name="feedback-type" required="">
+    <option value="">Select feedback type</option>
+    <option value="club">Club Performance</option>
+    <option value="election">Election Process</option>
+    <option value="platform">Platform Suggestion</option>
+    <option value="other">Other</option>
+    </select>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="organization">Organization (if applicable)</label>
+    <select class="form-select" id="organization" name="organization">
+    <option value="">Select organization</option>
+    <option value="sac">Student Activity Council</option>
+    <option value="ncc">National Cadet Corps</option>
+    <option value="nss">National Service Scheme</option>
+    <option value="cultural">Cultural Committee</option>
+    <option value="cs-club">Computer Science Club</option>
+    <option value="debate-club">Debate Club</option>
+    <option value="other">Other</option>
+    </select>
+    </div>
+    <div class="form-row">
+    <div class="form-col">
+    <div class="form-group">
+    <label class="form-label" for="name">Your Name</label>
+    <input class="form-control" id="name" name="name" placeholder="Enter your name" required="" type="text"/>
+    </div>
+    </div>
+    <div class="form-col">
+    <div class="form-group">
+    <label class="form-label" for="email">Email Address</label>
+    <input class="form-control" id="email" name="email" placeholder="Enter your email" required="" type="email"/>
+    </div>
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="feedback-title">Feedback Title</label>
+    <input class="form-control" id="feedback-title" name="feedback-title" placeholder="Brief title for your feedback" required="" type="text"/>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="feedback-content">Your Feedback</label>
+    <textarea class="form-control" id="feedback-content" name="feedback-content" placeholder="Share your thoughts, suggestions, or feedback..." required=""></textarea>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="rating">Rate your experience (1-5)</label>
+    <div class="rating-input">
+    <input class="form-control" id="rating" max="5" min="1" name="rating" type="range" value="3"/>
+    <div class="rating-display">3/5</div>
+    </div>
+    </div>
+    <div class="form-group">
+    <div class="form-check">
+    <input class="form-check-input" id="anonymous" name="anonymous" type="checkbox"/>
+    <label class="form-check-label" for="anonymous">Submit anonymously</label>
+    </div>
+    </div>
+    <div class="form-group">
+    <div class="form-check">
+    <input class="form-check-input" id="public" name="public" type="checkbox"/>
+    <label class="form-check-label" for="public">Make feedback public</label>
+    </div>
+    </div>
+    <button class="btn btn-primary btn-lg" type="submit">Submit Feedback</button>
+    </form>
+    </div>
+    </div>
+    <div class="tab-content" id="view-feedback-content">
+    <div class="filters">
+    <select class="form-control filter-select">
+    <option value="all">All Feedback Types</option>
+    <option value="club">Club Performance</option>
+    <option value="election">Election Process</option>
+    <option value="platform">Platform Suggestion</option>
+    <option value="other">Other</option>
+    </select>
+    <select class="form-control filter-select">
+    <option value="all">All Organizations</option>
+    <option value="sac">Student Activity Council</option>
+    <option value="ncc">National Cadet Corps</option>
+    <option value="nss">National Service Scheme</option>
+    <option value="cultural">Cultural Committee</option>
+    <option value="cs-club">Computer Science Club</option>
+    <option value="debate-club">Debate Club</option>
+    </select>
+    </div>
+    <div class="feedback-list">
+    <div class="timeline">
+    <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+    <div class="timeline-date">June 5, 2023</div>
+    <h4>Improve Election Notification System</h4>
+    <p>I suggest implementing push notifications for important election events like nominations opening, voting periods, and results announcements. This would ensure students don't miss opportunities to participate.</p>
+    <div class="timeline-meta">
+    <span class="badge badge-primary">Platform Suggestion</span>
+    <span class="badge badge-secondary">4/5 Rating</span>
+    <span>- Anonymous Student</span>
+    </div>
+    </div>
+    </div>
+    <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+    <div class="timeline-date">June 3, 2023</div>
+    <h4>Great Cultural Committee Events</h4>
+    <p>The Cultural Committee has done an outstanding job organizing diverse events this semester. The international food festival was particularly well executed and brought students from different backgrounds together.</p>
+    <div class="timeline-meta">
+    <span class="badge badge-primary">Club Performance</span>
+    <span class="badge badge-secondary">5/5 Rating</span>
+    <span>- Raj Mehta</span>
+    </div>
+    </div>
+    </div>
+    <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-content">
+    <div class="timeline-date">May 29, 2023</div>
+    <h4>Candidate Information Could Be More Detailed</h4>
+    <p>While I appreciate the digital platform, I think candidates should have more space to share their vision and past achievements. Perhaps add a section for past leadership roles and specific goals for the position.</p>
+    <div class="timeline-meta">
+    <span class="badge badge-primary">Election Process</span>
+    <span class="badge badge-secondary">3/5 Rating</span>
+    <span>- Lisa Wang</span>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="pagination">
+    <a class="page-item active" href="#"><span class="page-link">1</span></a>
+    <a class="page-item" href="#"><span class="page-link">2</span></a>
+    <a class="page-item" href="#"><span class="page-link">3</span></a>
+    <a class="page-item" href="#"><span class="page-link"><i class="fas fa-angle-right"></i></span></a>
+    </div>
+    </div>
+    </div>
+    </section>
+    <!-- Modals -->
+    <div class="modal-overlay" id="login-modal">
+    <div class="modal">
+    <div class="modal-header">
+    <h3 class="modal-title">Login to Your Account</h3>
+    <button class="modal-close">×</button>
+    </div>
+    <div class="modal-body">
+    <form data-form-type="officeiq-lead" id="login-form">
+    <div class="form-group">
+    <label class="form-label" for="login-email">Email Address</label>
+    <input class="form-control" id="login-email" name="email" placeholder="Enter your email" required="" type="email"/>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="login-password">Password</label>
+    <input class="form-control" id="login-password" name="password" placeholder="Enter your password" required="" type="password"/>
+    </div>
+    <div class="form-group">
+    <div class="form-check">
+    <input class="form-check-input" id="remember-me" name="remember-me" type="checkbox"/>
+    <label class="form-check-label" for="remember-me">Remember me</label>
+    </div>
+    </div>
+    <button class="btn btn-primary" style="width: 100%;" type="submit">Login</button>
+    </form>
+    <div class="text-center" style="margin-top: 1rem;">
+    <a href="#" id="forgot-password">Forgot password?</a>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <p>Don't have an account? <a href="#" id="switch-to-register">Register now</a></p>
+    </div>
+    </div>
+    </div>
+    <div class="modal-overlay" id="register-modal">
+    <div class="modal">
+    <div class="modal-header">
+    <h3 class="modal-title">Create Your Account</h3>
+    <button class="modal-close">×</button>
+    </div>
+    <div class="modal-body">
+    <form data-form-type="officeiq-lead" id="register-form">
+    <div class="form-row">
+    <div class="form-col">
+    <div class="form-group">
+    <label class="form-label" for="register-fname">First Name</label>
+    <input class="form-control" id="register-fname" name="first-name" placeholder="First name" required="" type="text"/>
+    </div>
+    </div>
+    <div class="form-col">
+    <div class="form-group">
+    <label class="form-label" for="register-lname">Last Name</label>
+    <input class="form-control" id="register-lname" name="last-name" placeholder="Last name" required="" type="text"/>
+    </div>
+    </div>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="register-email">Email Address</label>
+    <input class="form-control" id="register-email" name="email" placeholder="Enter your university email" required="" type="email"/>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="register-student-id">Student ID</label>
+    <input class="form-control" id="register-student-id" name="student-id" placeholder="Enter your student ID" required="" type="text"/>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="register-password">Password</label>
+    <input class="form-control" id="register-password" name="password" placeholder="Create a password" required="" type="password"/>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="register-confirm-password">Confirm Password</label>
+    <input class="form-control" id="register-confirm-password" name="confirm-password" placeholder="Confirm your password" required="" type="password"/>
+    </div>
+    <div class="form-group">
+    <div class="form-check">
+    <input class="form-check-input" id="terms" name="terms" required="" type="checkbox"/>
+    <label class="form-check-label" for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+    </div>
+    </div>
+    <button class="btn btn-primary" style="width: 100%;" type="submit">Register</button>
+    </form>
+    </div>
+    <div class="modal-footer">
+    <p>Already have an account? <a href="#" id="switch-to-login">Login instead</a></p>
+    </div>
+    </div>
+    </div>
+    <div class="modal-overlay" id="nomination-modal">
+    <div class="modal">
+    <div class="modal-header">
+    <h3 class="modal-title">Submit Your Nomination</h3>
+    <button class="modal-close">×</button>
+    </div>
+    <div class="modal-body">
+    <form data-form-type="officeiq-lead" id="nomination-form">
+    <div class="form-group">
+    <label class="form-label" for="nomination-organization">Organization</label>
+    <select class="form-select" id="nomination-organization" name="organization" required="">
+    <option value="">Select organization</option>
+    <option value="sac">Student Activity Council</option>
+    <option value="ncc">National Cadet Corps</option>
+    <option value="nss">National Service Scheme</option>
+    <option value="cultural">Cultural Committee</option>
+    <option value="cs-club">Computer Science Club</option>
+    <option value="debate-club">Debate Club</option>
+    </select>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="nomination-position">Position</label>
+    <select class="form-select" id="nomination-position" name="position" required="">
+    <option value="">Select position</option>
+    <option value="president">President</option>
+    <option value="vice-president">Vice President</option>
+    <option value="secretary">Secretary</option>
+    <option value="treasurer">Treasurer</option>
+    <option value="coordinator">Coordinator</option>
+    <option value="technical-lead">Technical Lead</option>
+    </select>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="nomination-photo">Profile Photo</label>
+    <input accept="image/*" class="form-control" id="nomination-photo" name="photo" required="" type="file"/>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="nomination-qualifications">Qualifications &amp; Experience</label>
+    <textarea class="form-control" id="nomination-qualifications" name="qualifications" placeholder="Describe your relevant qualifications and experience..." required=""></textarea>
+    </div>
+    <div class="form-group">
+    <label class="form-label" for="nomination-manifesto">Your Manifesto</label>
+    <textarea class="form-control" id="nomination-manifesto" name="manifesto" placeholder="Outline your vision, plans, and goals if elected..." required=""></textarea>
+    </div>
+    <div class="form-group">
+    <div class="form-check">
+    <input class="form-check-input" id="nomination-declaration" name="declaration" required="" type="checkbox"/>
+    <label class="form-check-label" for="nomination-declaration">I declare that all information provided is true and I agree to abide by the election code of conduct</label>
+    </div>
+    </div>
+    <button class="btn btn-primary" style="width: 100%;" type="submit">Submit Nomination</button>
+    </form>
+    </div>
+    </div>
+    </div>
+    <div class="modal-overlay" id="voting-modal">
+    <div class="modal">
+    <div class="modal-header">
+    <h3 class="modal-title">Cast Your Vote</h3>
+    <button class="modal-close">×</button>
+    </div>
+    <div class="modal-body">
+    <div class="alert alert-warning">
+    <i class="fas fa-exclamation-triangle"></i> You can only vote once in this election. Your vote is anonymous but cannot be changed once submitted.
+                        </div>
+    <h4>Student Activity Council - President</h4>
+    <p>Select one candidate:</p>
+    <form data-form-type="officeiq-lead" id="voting-form">
+    <div class="form-group">
+    <div class="form-check">
+    <input class="form-check-input" id="candidate-1" name="vote" required="" type="radio" value="candidate-1"/>
+    <label class="form-check-label" for="candidate-1">Sarah Johnson</label>
+    </div>
+    <div class="form-check">
+    <input class="form-check-input" id="candidate-2" name="vote" type="radio" value="candidate-2"/>
+    <label class="form-check-label" for="candidate-2">Robert Williams</label>
+    </div>
+    <div class="form-check">
+    <input class="form-check-input" id="candidate-3" name="vote" type="radio" value="candidate-3"/>
+    <label class="form-check-label" for="candidate-3">Maria Garcia</label>
+    </div>
+    <div class="form-check">
+    <input class="form-check-input" id="candidate-4" name="vote" type="radio" value="candidate-4"/>
+    <label class="form-check-label" for="candidate-4">Alex Thompson</label>
+    </div>
+    </div>
+    <div class="form-group">
+    <div class="form-check">
+    <input class="form-check-input" id="voting-confirmation" name="confirmation" required="" type="checkbox"/>
+    <label class="form-check-label" for="voting-confirmation">I confirm this is my final vote and understand it cannot be changed</label>
+    </div>
+    </div>
+    <button class="btn btn-primary" style="width: 100%;" type="submit">Submit Vote</button>
+    </form>
+    </div>
+    </div>
+    </div>
+    <div class="modal-overlay" id="manifesto-modal">
+    <div class="modal">
+    <div class="modal-header">
+    <h3 class="modal-title">Candidate Manifesto</h3>
+    <button class="modal-close">×</button>
+    </div>
+    <div class="modal-body">
+    <div class="candidate-profile">
+    <img alt="Sarah Johnson" src="https://storage.googleapis.com/sitebuild-prod.firebasestorage.app/sites/Vuaeb64RaiNjlKvH7dC7W8T1Np83/YuhNoeJiQo489bEOdDcx/images/eac4fc3a3afd42a48eaf3672b34d0936-oMn6nq-NwoM.jpg" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem;"/>
+    <h4>Sarah Johnson</h4>
+    <p>Candidate for SAC President</p>
+    </div>
+    <div class="manifesto-content">
+    <h4>My Vision for the Student Body</h4>
+    <p>As your Student Activity Council President, I am committed to creating a more inclusive, transparent, and active campus community. My vision centers around three key pillars:</p>
+    <h5>1. Transparent Governance</h5>
+    <p>I will implement monthly open forums where all students can directly voice concerns to SAC representatives. Additionally, I'll create a public budget dashboard showing how student funds are allocated and spent.</p>
+    <h5>2. Inclusive Campus Culture</h5>
+    <p>I plan to establish a Diversity and Inclusion Committee within SAC to ensure all campus events and initiatives represent our diverse student population. We'll increase funding for cultural celebrations and create spaces for underrepresented groups.</p>
+    <h5>3. Mental Health Advocacy</h5>
+    <p>I will work with the university administration to expand mental health resources, including peer support programs and stress-relief events during exam periods. Every student deserves access to the support they need to thrive academically and personally.</p>
+    <h4>Qualifications</h4>
+    <ul>
+    <li>Vice President of Computer Science Society (2022-2023)</li>
+    <li>Student Representative on University Welfare Committee</li>
+    <li>Organized Campus Tech Week with 500+ attendees</li>
+    <li>Peer Mentor for first-year students</li>
+    </ul>
+    <p class="text-center" style="margin-top: 2rem;">
+    <a class="btn btn-secondary btn-sm" href="#">Download Full Manifesto (PDF)</a>
+    </p>
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-outline" data-dismiss="modal">Close</button>
+    <button class="btn btn-primary" onclick="openVotingModal()">Vote for this Candidate</button>
+    </div>
+    </div>
+    </div>
+    </main>
+    <footer>
+    <div class="container">
+    <div class="footer-grid">
+    <div class="footer-col">
+    <h4>CampusVote</h4>
+    <p>Your trusted platform for secure and transparent campus elections. Empowering student voices across all organizations.</p>
+    <div class="social-links">
+    <a class="social-link" href="#"><i class="fab fa-facebook-f"></i></a>
+    <a class="social-link" href="#"><i class="fab fa-twitter"></i></a>
+    <a class="social-link" href="#"><i class="fab fa-instagram"></i></a>
+    <a class="social-link" href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+    </div>
+    <div class="footer-col">
+    <h4>Quick Links</h4>
+    <ul class="footer-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#elections">Elections</a></li>
+    <li><a href="#candidates">Candidates</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#feedback">Feedback</a></li>
+    </ul>
+    </div>
+    <div class="footer-col">
+    <h4>Resources</h4>
+    <ul class="footer-links">
+    <li><a href="#">Election Guidelines</a></li>
+    <li><a href="#">Nomination Process</a></li>
+    <li><a href="#">Code of Conduct</a></li>
+    <li><a href="help.html">FAQ</a></li>
+    <li><a href="#">Support</a></li>
+    </ul>
+    </div>
+    <div class="footer-col">
+    <h4>Contact Us</h4>
+    <p><i class="fas fa-envelope"></i> support@campusvote.edu</p>
+    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+    <p><i class="fas fa-map-marker-alt"></i> Student Center, Room 204<br/>University Campus</p>
+    </div>
+    </div>
+    <div class="footer-bottom">
+    <p>© 2023 CampusVote. All rights reserved.</p>
+    <p>
+    <a href="#">Privacy Policy</a> | 
+                        <a href="#">Terms of Service</a> | 
+                        <a href="#">Accessibility</a>
+    </p>
+    </div>
+    </div>
+    </footer>
+    <script src="ko.js"></script>
+     <script>
+      document.getElementById('feedbackForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const formData = {
+        feedbackType: document.getElementById('feedback-type').value,
+        organization: document.getElementById('organization').value,
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        feedbackTitle: document.getElementById('feedback-title').value,
+        feedbackContent: document.getElementById('feedback-content').value,
+        rating: document.getElementById('rating').value,
+        anonymous: document.getElementById('anonymous').checked,
+        public: document.getElementById('public').checked,
+    };
+
+    try {
+        const response = await fetch('http://localhost:5000/submit-feedback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert('Feedback submitted successfully!');
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        alert('Failed to submit feedback. Please try again later.');
+        console.error('Error submitting feedback:', error);
+    }
+});
+
+     </script> 
+   </body>
+   </html>

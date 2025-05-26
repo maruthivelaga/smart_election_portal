@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Election Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+    }
+    .dashboard {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    button {
+      background-color: #ffffff20;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      margin: 0.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+    button:hover {
+      background-color: #ffffff40;
+      transform: scale(1.05);
+    }
+    .content {
+      background-color: #ffffff10;
+      padding: 1rem;
+      border-radius: 10px;
+      min-height: 200px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card {
+      background-color: #ffffff20;
+      padding: 1rem;
+      border-radius: 10px;
+      margin: 1rem 0;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+    pre {
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <h1>Welcome to the College Election Dashboard</h1>
+
+    <div class="buttons">
+      <button onclick="showCandidates()">View Candidates</button>
+      <button onclick="showUserData()">My Profile</button>
+      <button onclick="showVotedData()">Who I Voted For</button>
+    </div>
+
+    <div class="content" id="displayArea">
+      <p>Select an option to view data.</p>
+    </div>
+  </div>
+
+  <script>
+    const candidates = [
+      { name: "Alice Johnson", department: "Computer Science", year: "3rd Year" },
+      { name: "Bob Smith", department: "Mechanical Engineering", year: "2nd Year" },
+      { name: "Carol Lee", department: "Electrical Engineering", year: "4th Year" }
+    ];
+
+    const userData = {
+      name: "John Doe",
+      department: "Information Technology",
+      year: "3rd Year",
+      studentID: "IT2023123"
+    };
+
+    const votedFor = {
+      name: "Alice Johnson",
+      department: "Computer Science",
+      year: "3rd Year"
+    };
+
+    function showCandidates() {
+      let html = '<h3>Contestants in Election</h3>';
+      candidates.forEach(c => {
+        html += `
+          <div class="card">
+            <strong>${c.name}</strong><br>
+            ${c.department}, ${c.year}
+          </div>
+        `;
+      });
+      document.getElementById("displayArea").innerHTML = html;
+    }
+
+    function showUserData() {
+      document.getElementById("displayArea").innerHTML = `
+        <h3>My Profile</h3>
+        <div class="card">
+          <pre>Name: ${userData.name}
+Department: ${userData.department}
+Year: ${userData.year}
+Student ID: ${userData.studentID}</pre>
+        </div>
+      `;
+    }
+
+    function showVotedData() {
+      document.getElementById("displayArea").innerHTML = `
+        <h3>My Vote</h3>
+        <div class="card">
+          <pre>You voted for:
+Name: ${votedFor.name}
+Department: ${votedFor.department}
+Year: ${votedFor.year}</pre>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

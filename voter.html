@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Elections - Voter Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: var(--secondary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+        
+        .login-form {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+        
+        .status-message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .status-message.success {
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            display: block;
+        }
+        
+        .status-message.error {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            display: block;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        @media (max-width: 576px) {
+            .header {
+                padding: 20px;
+            }
+            
+            .login-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Voter Verification</h1>
+            <p>Enter your credentials to verify your voting eligibility</p>
+        </div>
+        
+        <div class="login-form">
+            <div id="statusMessage" class="status-message"></div>
+            
+            <form id="verificationForm">
+                <div class="form-group">
+                    <label for="studentId">Student ID</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-id-card"></i>
+                        <input type="text" id="studentId" class="form-control" placeholder="Enter your student ID" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                        <i class="fas fa-eye password-toggle" id="togglePassword"></i>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary" id="verifyBtn">
+                    <span id="btnText">Verify and Login</span>
+                    <span id="spinner" style="display: none;">
+                        <i class="fas fa-spinner fa-spin"></i> Verifying...
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('verificationForm');
+            const studentIdInput = document.getElementById('studentId');
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const btnText = document.getElementById('btnText');
+            const spinner = document.getElementById('spinner');
+            const statusMessage = document.getElementById('statusMessage');
+            
+            // Toggle password visibility
+            togglePassword.addEventListener('click', function() {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+            });
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                btnText.style.display = 'none';
+                spinner.style.display = 'inline';
+                verifyBtn.disabled = true;
+                
+                // Clear previous messages
+                statusMessage.className = 'status-message';
+                statusMessage.textContent = '';
+                
+                // Simulate API call (replace with actual fetch in production)
+                setTimeout(() => {
+                    authenticateVoter(studentIdInput.value, passwordInput.value);
+                    
+                    // Reset button state
+                    btnText.style.display = 'inline';
+                    spinner.style.display = 'none';
+                    verifyBtn.disabled = false;
+                }, 1500);
+            });
+            
+            function authenticateVoter(studentId, password) {
+                // In a real app, this would be a fetch() to your backend
+                // Sample database (replace with actual authentication)
+                const voterDatabase = [
+                    { id: '20230001', password: 'Campus@2024', name: 'John Doe', hasVoted: false },
+                    { id: '20230002', password: 'SecurePass123', name: 'Jane Smith', hasVoted: false },
+                    { id: '20230003', password: 'Elections$567', name: 'Alex Johnson', hasVoted: true }
+                ];
+                
+                const voter = voterDatabase.find(v => v.id === studentId);
+                
+                if (!voter) {
+                    showError("Invalid credentials. Student ID not found.");
+                } else if (voter.password !== password) {
+                    showError("Incorrect password. Please try again.");
+                } else if (voter.hasVoted) {
+                    showError("You have already voted in this election.");
+                } else {
+                    showSuccess(`Welcome ${voter.name}! Verification successful.`);
+                    // Redirect to voting page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = "voting-booth.html";
+                    }, 2000);
+                }
+            }
+            
+            function showSuccess(message) {
+                statusMessage.className = 'status-message success';
+                statusMessage.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+            }
+            
+            function showError(message) {
+                statusMessage.className = 'status-message error';
+                statusMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+            }
+        });
+    </script>
+</body>
+</html>

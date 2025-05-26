@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CampusVote - Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+     :root {
+        --primary: #232c64;
+        --primary-light: #3a4380;
+        --primary-dark: #151c4a;
+        --secondary: #f7a01d;
+        --secondary-light: #fbb147;
+        --secondary-dark: #e08c0b;
+        --white: #ffffff;
+        --light-gray: #f5f7fa;
+        --mid-gray: #e1e5ee;
+        --text-dark: #333333;
+        --text-light: #666666;
+        --success: #28a745;
+        --warning: #ffc107;
+        --danger: #dc3545;
+        --info: #17a2b8;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background-color: var(--light-gray);
+        color: var(--text-dark);
+        line-height: 1.6;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      .auth-container {
+        display: flex;
+        width: 100%;
+      }
+
+      .auth-left {
+        flex: 1;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        color: var(--white);
+        padding: 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .auth-left::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80")
+          no-repeat center center/cover;
+        opacity: 0.2;
+      }
+
+      .auth-left-content {
+        position: relative;
+        z-index: 1;
+        max-width: 600px;
+      }
+
+      .auth-logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .auth-logo span {
+        color: var(--secondary);
+      }
+
+      .auth-left h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--white);
+      }
+
+      .auth-left p {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .auth-features {
+        margin-top: 3rem;
+      }
+
+      .auth-feature {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+      }
+
+      .auth-feature i {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        color: var(--secondary);
+      }
+
+      .auth-feature h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .auth-feature p {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin-bottom: 0;
+      }
+
+      .auth-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .auth-form-container {
+        width: 100%;
+        max-width: 450px;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+      }
+
+      .auth-tabs {
+        display: flex;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--mid-gray);
+      }
+
+      .tab {
+        flex: 1;
+        text-align: center;
+        padding: 1rem;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text-light);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .tab.active {
+        color: var(--primary);
+      }
+
+      .tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary);
+      }
+
+      .auth-form {
+        display: none;
+      }
+
+      .auth-form.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-dark);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--mid-gray);
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(35, 44, 100, 0.2);
+        outline: none;
+      }
+
+      .password-input {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: var(--text-light);
+      }
+
+      .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .remember-me {
+        display: flex;
+        align-items: center;
+      }
+
+      .remember-me input {
+        margin-right: 0.5rem;
+      }
+
+      .forgot-password {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .forgot-password:hover {
+        text-decoration: underline;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: var(--white);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-secondary {
+        background-color: var(--secondary);
+        color: var(--white);
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      .auth-divider {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        color: var(--text-light);
+      }
+
+      .auth-divider::before,
+      .auth-divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid var(--mid-gray);
+      }
+
+      .auth-divider span {
+        padding: 0 1rem;
+        font-size: 0.9rem;
+      }
+
+      .social-auth {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-social {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem;
+        border: 1px solid var(--mid-gray);
+        border-radius: 6px;
+        background-color: var(--white);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-social:hover {
+        background-color: var(--light-gray);
+      }
+
+      .btn-social i {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+      }
+
+      .auth-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+
+      .auth-footer a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .auth-footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .auth-container {
+          flex-direction: column;
+        }
+
+        .auth-left {
+          padding: 3rem 2rem;
+        }
+
+        .auth-right {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .auth-left {
+          padding: 2rem 1.5rem;
+        }
+
+        .auth-left h1 {
+          font-size: 2rem;
+        }
+
+        .auth-right {
+          padding: 1.5rem;
+        }
+
+        .auth-form-container {
+          padding: 1.5rem;
+        }
+
+        .social-auth {
+          flex-direction: column;
+        }
+      }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <!-- Left Side -->
+    <div class="auth-left">
+      <div class="auth-left-content">
+        <div class="auth-logo">Campus<span>Vote</span></div>
+        <h1>Welcome to Campus Digital Elections</h1>
+
+        <div class="auth-features">
+          <div class="auth-feature">
+            <i class="fas fa-shield-alt"></i>
+            <div><h3>Secure Voting</h3></div>
+          </div>
+          <div class="auth-feature">
+            <i class="fas fa-mobile-alt"></i>
+            <div><h3>Vote Anywhere</h3></div>
+          </div>
+          <div class="auth-feature">
+            <i class="fas fa-chart-bar"></i>
+            <div><h3>Real-time Results</h3></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="auth-right">
+      <div class="auth-form-container">
+        <div class="auth-tabs">
+          <div class="tab active" onclick="switchTab('login')">Login</div>
+          <div class="tab" onclick="switchTab('signup')">Sign Up</div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active">
+          <div class="form-group">
+            <label class="form-label" for="login-email">University Email</label>
+            <input type="email" id="login-email" class="form-control" placeholder="your.email@university.edu" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <div class="password-input">
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required />
+              <i class="fas fa-eye password-toggle" onclick="togglePassword('login-password', this)"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-role">Role</label>
+            <select id="login-role" class="form-control" required>
+              <option value="voter">Voter</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="remember-forgot">
+            <div class="remember-me">
+              <input type="checkbox" id="remember-me" />
+              <label for="remember-me">Remember me</label>
+            </div>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+
+        <!-- Sign Up Form -->
+        <form id="signup-form" class="auth-form">
+          <div class="form-group">
+            <label class="form-label" for="signup-email">University Email</label>
+            <input type="email" id="signup-email" class="form-control" placeholder="your.email@university.edu" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-password">Password</label>
+            <div class="password-input">
+              <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required />
+              <i class="fas fa-eye password-toggle" onclick="togglePassword('signup-password', this)"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-role">Role</label>
+            <select id="signup-role" class="form-control" required>
+              <option value="voter">Voter</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Account</button>
+        </form>
+
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+
+        <div class="social-auth">
+          <button class="btn-social">
+            <i class="fab fa-google"></i> Sign up with Google
+          </button>
+          <button class="btn-social">
+            <i class="fab fa-facebook-f"></i> Sign up with Facebook
+          </button>
+        </div>
+
+        <div class="auth-footer">
+          <p>Already have an account? <a href="#" onclick="switchTab('login')">Login</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword(id, icon) {
+      const input = document.getElementById(id);
+      const type = input.type === "password" ? "text" : "password";
+      input.type = type;
+      icon.classList.toggle("fa-eye-slash");
+    }
+
+    function switchTab(tab) {
+      const loginForm = document.getElementById('login-form');
+      const signupForm = document.getElementById('signup-form');
+      const loginTab = document.querySelector('.tab:first-child');
+      const signupTab = document.querySelector('.tab:last-child');
+
+      if (tab === 'login') {
+        loginForm.classList.add('active');
+        signupForm.classList.remove('active');
+        loginTab.classList.add('active');
+        signupTab.classList.remove('active');
+      } else {
+        signupForm.classList.add('active');
+        loginForm.classList.remove('active');
+        loginTab.classList.remove('active');
+        signupTab.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>

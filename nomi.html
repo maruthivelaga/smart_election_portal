@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Elections - Nomination Submission</title>
+    <link rel="stylesheet" href="nomination.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Submit Your Nomination</h1>
+            <p>Fill out the form to run for a position in campus elections.</p>
+        </header>
+
+        <form id="nominationForm">
+            <div class="form-group">
+                <label for="fullName">Full Name*</label>
+                <input type="text" id="fullName" required placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+                <label for="studentId">Student ID*</label>
+                <input type="text" id="studentId" required placeholder="e.g., 20230001">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email*</label>
+                <input type="email" id="email" required placeholder="john.doe@university.edu">
+            </div>
+
+            <div class="form-group">
+                <label for="club">Select Club/Organization*</label>
+                <select id="club" required>
+                    <option value="" disabled selected>Select a club</option>
+                    <option value="SAC">Student Affairs Council (SAC)</option>
+                    <option value="NCC">National Cadet Corps (NCC)</option>
+                    <option value="NSS">National Service Scheme (NSS)</option>
+                    <option value="Debate">Debate Club</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="position">Position*</label>
+                <select id="position" required>
+                    <option value="" disabled selected>Select a position</option>
+                    <option value="President">President</option>
+                    <option value="Vice President">Vice President</option>
+                    <option value="Secretary">Secretary</option>
+                    <option value="Treasurer">Treasurer</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="manifesto">Manifesto (Max 500 words)*</label>
+                <textarea id="manifesto" required placeholder="Explain your goals and plans..." maxlength="3000"></textarea>
+                <span id="wordCount">0/500 words</span>
+            </div>
+
+           
+
+            <div class="form-group checkbox">
+                <input type="checkbox" id="agreeTerms" required>
+                <label for="agreeTerms">I certify that the information provided is accurate.</label>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit Nomination</button>
+        </form>
+    </div>
+
+    <script src="nomination.js"></script>
+    <script>
+        document.getElementById('nominationForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    // Get form values
+    const nominationData = {
+        fullName: document.getElementById('fullName').value,
+        studentId: document.getElementById('studentId').value,
+        email: document.getElementById('email').value,
+        club: document.getElementById('club').value,
+        position: document.getElementById('position').value,
+        manifesto: document.getElementById('manifesto').value
+    };
+
+    try {
+        const response = await fetch('http://localhost:5000/submit-nomination', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(nominationData)
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Nomination submitted successfully!');
+        } else {
+            alert('Error: ' + result.message);
+        }
+    } catch (error) {
+        alert('An error occurred: ' + error.message);
+    }
+});
+
+    </script>
+</body>
+</html>

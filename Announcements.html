@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Elections - Announcements</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+            --gray: #95a5a6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .header {
+            background: var(--secondary);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Announcements Section */
+        .announcements {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 15px 20px;
+            background: var(--light);
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+        }
+
+        .announcement-list {
+            padding: 0;
+        }
+
+        /* Announcement Item */
+        .announcement {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+
+        .announcement:hover {
+            background: #f9f9f9;
+        }
+
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .announcement-title {
+            font-weight: 600;
+            color: var(--secondary);
+            font-size: 1.1rem;
+        }
+
+        .announcement-date {
+            color: var(--gray);
+            font-size: 0.8rem;
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+
+        .announcement-body {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .announcement-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .announcement-type {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .type-update {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--primary);
+        }
+
+        .type-result {
+            background: rgba(39, 174, 96, 0.1);
+            color: var(--success);
+        }
+
+        .type-alert {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--danger);
+        }
+
+        .type-reminder {
+            background: rgba(243, 156, 18, 0.1);
+            color: var(--warning);
+        }
+
+        /* Notification Preferences */
+        .notification-prefs {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+        }
+
+        .prefs-form {
+            padding: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        /* Filter Controls */
+        .filter-controls {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            background: white;
+            border-bottom: 1px solid #eee;
+        }
+
+        .filter-btn {
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .filter-btn.update {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .filter-btn.result {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .filter-btn.alert {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .filter-btn.reminder {
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+
+        .filter-btn.active.update {
+            background: var(--primary);
+        }
+
+        .filter-btn.active.result {
+            background: var(--success);
+        }
+
+        .filter-btn.active.alert {
+            background: var(--danger);
+        }
+
+        .filter-btn.active.reminder {
+            background: var(--warning);
+        }
+
+        /* No Announcements */
+        .no-announcements {
+            padding: 40px 20px;
+            text-align: center;
+            color: var(--gray);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .page-link {
+            padding: 5px 10px;
+            margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: pointer;
+            background: white;
+        }
+
+        .page-link:hover {
+            background: #f5f5f5;
+        }
+
+        .page-link.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .filter-controls {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .announcement-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .announcement-date {
+                margin-left: 0;
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Election Announcements</h1>
+        <p>Stay updated with the latest election news and notifications</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Announcements Section -->
+        <div class="announcements">
+            <div class="section-header">
+                <h2><i class="fas fa-bullhorn"></i> Latest Announcements</h2>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="filter-controls">
+                <button class="filter-btn update active" data-filter="all">All</button>
+                <button class="filter-btn update" data-filter="update">Updates</button>
+                <button class="filter-btn result" data-filter="result">Results</button>
+                <button class="filter-btn alert" data-filter="alert">Alerts</button>
+                <button class="filter-btn reminder" data-filter="reminder">Reminders</button>
+            </div>
+
+            <div class="announcement-list" id="announcementList">
+                <!-- Announcements will be loaded here -->
+            </div>
+
+            <div class="pagination">
+                <span class="page-link active">1</span>
+                <span class="page-link">2</span>
+                <span class="page-link">3</span>
+                <span class="page-link">Next <i class="fas fa-chevron-right"></i></span>
+            </div>
+        </div>
+
+        <!-- Notification Preferences -->
+        <div class="notification-prefs">
+            <div class="section-header">
+                <h2><i class="fas fa-bell"></i> Notification Preferences</h2>
+            </div>
+            <div class="prefs-form">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" class="form-control" value="student@campus.edu" id="emailInput">
+                    <div class="checkbox-group" style="margin-top: 8px;">
+                        <input type="checkbox" id="emailEnabled" checked>
+                        <label for="emailEnabled">Enable email notifications</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <input type="tel" class="form-control" value="+91 9876543210" id="phoneInput">
+                    <div class="checkbox-group" style="margin-top: 8px;">
+                        <input type="checkbox" id="smsEnabled" checked>
+                        <label for="smsEnabled">Enable SMS alerts</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notification Types</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="updatesEnabled" checked>
+                        <label for="updatesEnabled">Election updates</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="resultsEnabled" checked>
+                        <label for="resultsEnabled">Election results</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="alertsEnabled" checked>
+                        <label for="alertsEnabled">Urgent alerts</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remindersEnabled" checked>
+                        <label for="remindersEnabled">Event reminders</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Notification Frequency</label>
+                    <select class="form-control" id="frequencySelect">
+                        <option value="immediate">Immediate notifications</option>
+                        <option value="daily">Daily digest</option>
+                        <option value="weekly">Weekly summary</option>
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" id="savePrefsBtn">
+                    <i class="fas fa-save"></i> Save Preferences
+                </button>
+
+                <div class="checkbox-group" style="margin-top: 15px;">
+                    <input type="checkbox" id="testNotification">
+                    <label for="testNotification">Send me a test notification</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const announcementList = document.getElementById('announcementList');
+            const emailInput = document.getElementById('emailInput');
+            const phoneInput = document.getElementById('phoneInput');
+            const emailEnabled = document.getElementById('emailEnabled');
+            const smsEnabled = document.getElementById('smsEnabled');
+            const updatesEnabled = document.getElementById('updatesEnabled');
+            const resultsEnabled = document.getElementById('resultsEnabled');
+            const alertsEnabled = document.getElementById('alertsEnabled');
+            const remindersEnabled = document.getElementById('remindersEnabled');
+            const frequencySelect = document.getElementById('frequencySelect');
+            const savePrefsBtn = document.getElementById('savePrefsBtn');
+            const testNotification = document.getElementById('testNotification');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const pageLinks = document.querySelectorAll('.page-link');
+
+            // Sample announcements data
+            const announcements = [
+                {
+                    id: 1,
+                    title: "Election Results Announcement",
+                    body: "The results for SAC President election have been published. John Doe has been elected as the new SAC President with 58% of the votes.",
+                    date: "2023-10-28T14:30:00",
+                    type: "result",
+                    urgent: true
+                },
+                {
+                    id: 2,
+                    title: "Voting Deadline Extended",
+                    body: "Due to technical issues earlier today, the voting deadline for NCC elections has been extended by 24 hours. The new deadline is October 26th at 5:00 PM.",
+                    date: "2023-10-25T16:45:00",
+                    type: "update",
+                    urgent: true
+                },
+                {
+                    id: 3,
+                    title: "Candidate Meet & Greet Session",
+                    body: "There will be a meet and greet session with all SAC candidates tomorrow at the Student Center from 3:00 PM to 5:00 PM. All students are encouraged to attend.",
+                    date: "2023-10-20T09:15:00",
+                    type: "reminder",
+                    urgent: false
+                },
+                {
+                    id: 4,
+                    title: "New Election Rules Published",
+                    body: "The election committee has published updated rules for campaign conduct. Please review them before campaigning. Major changes include stricter social media guidelines.",
+                    date: "2023-10-18T11:00:00",
+                    type: "update",
+                    urgent: false
+                },
+                {
+                    id: 5,
+                    title: "Voting System Maintenance",
+                    body: "The online voting system will be undergoing maintenance tonight from 1:00 AM to 3:00 AM. The system will be unavailable during this time.",
+                    date: "2023-10-15T14:20:00",
+                    type: "alert",
+                    urgent: false
+                },
+                {
+                    id: 6,
+                    title: "NCC Election Results",
+                    body: "The NCC Cadet Captain election results are now available. Priya Sharma has been elected with 62% of the votes.",
+                    date: "2023-10-12T10:00:00",
+                    type: "result",
+                    urgent: false
+                },
+                {
+                    id: 7,
+                    title: "Reminder: Voting Starts Tomorrow",
+                    body: "This is a reminder that voting for all campus elections begins tomorrow at 9:00 AM. Make sure to verify your eligibility beforehand.",
+                    date: "2023-10-10T16:30:00",
+                    type: "reminder",
+                    urgent: false
+                },
+                {
+                    id: 8,
+                    title: "Emergency: System Outage Resolved",
+                    body: "The voting system outage has been resolved. Voting has been extended by 2 hours to compensate for the downtime.",
+                    date: "2023-10-08T13:15:00",
+                    type: "alert",
+                    urgent: true
+                }
+            ];
+
+            // Current filter
+            let currentFilter = 'all';
+            let currentPage = 1;
+            const announcementsPerPage = 5;
+
+            // Render announcements based on filter and page
+            function renderAnnouncements() {
+                announcementList.innerHTML = '';
+                
+                // Filter announcements
+                let filteredAnnouncements = announcements;
+                if (currentFilter !== 'all') {
+                    filteredAnnouncements = announcements.filter(a => a.type === currentFilter);
+                }
+                
+                // Paginate announcements
+                const startIndex = (currentPage - 1) * announcementsPerPage;
+                const endIndex = startIndex + announcementsPerPage;
+                const paginatedAnnouncements = filteredAnnouncements.slice(startIndex, endIndex);
+                
+                if (paginatedAnnouncements.length === 0) {
+                    announcementList.innerHTML = `
+                        <div class="no-announcements">
+                            <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                            <p>No announcements found for the selected filter.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                paginatedAnnouncements.forEach(announcement => {
+                    const announcementEl = document.createElement('div');
+                    announcementEl.className = 'announcement';
+                    
+                    let typeClass = '';
+                    let typeText = '';
+                    
+                    switch(announcement.type) {
+                        case 'result':
+                            typeClass = 'type-result';
+                            typeText = 'Result';
+                            break;
+                        case 'update':
+                            typeClass = 'type-update';
+                            typeText = 'Update';
+                            break;
+                        case 'alert':
+                            typeClass = 'type-alert';
+                            typeText = 'Alert';
+                            break;
+                        case 'reminder':
+                            typeClass = 'type-reminder';
+                            typeText = 'Reminder';
+                            break;
+                    }
+                    
+                    const date = new Date(announcement.date);
+                    const formattedDate = date.toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'short', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    
+                    announcementEl.innerHTML = `
+                        <div class="announcement-header">
+                            <div class="announcement-title">${announcement.title}</div>
+                            <div class="announcement-date">${formattedDate}</div>
+                        </div>
+                        <div class="announcement-body">${announcement.body}</div>
+                        <div class="announcement-meta">
+                            <span class="announcement-type ${typeClass}">${typeText}</span>
+                            ${announcement.urgent ? '<span><i class="fas fa-exclamation-circle"></i> Urgent</span>' : ''}
+                        </div>
+                    `;
+                    
+                    announcementList.appendChild(announcementEl);
+                });
+            }
+
+            // Save notification preferences
+            savePrefsBtn.addEventListener('click', function() {
+                const prefs = {
+                    email: emailInput.value,
+                    phone: phoneInput.value,
+                    emailEnabled: emailEnabled.checked,
+                    smsEnabled: smsEnabled.checked,
+                    updatesEnabled: updatesEnabled.checked,
+                    resultsEnabled: resultsEnabled.checked,
+                    alertsEnabled: alertsEnabled.checked,
+                    remindersEnabled: remindersEnabled.checked,
+                    frequency: frequencySelect.value,
+                    testNotification: testNotification.checked
+                };
+                
+                // Disable save button during processing
+                savePrefsBtn.disabled = true;
+                savePrefsBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+                
+                // Simulate API call (replace with actual fetch in production)
+                setTimeout(() => {
+                    // In a real app, this would save to your backend
+                    console.log('Saved preferences:', prefs);
+                    
+                    if (prefs.testNotification) {
+                        alert('Preferences saved! A test notification has been sent to your email and phone (if enabled).');
+                    } else {
+                        alert('Notification preferences saved successfully!');
+                    }
+                    
+                    // Re-enable save button
+                    savePrefsBtn.disabled = false;
+                    savePrefsBtn.innerHTML = '<i class="fas fa-save"></i> Save Preferences';
+                    testNotification.checked = false;
+                }, 1500);
+            });
+
+            // Filter button click handlers
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active filter button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Set new filter and reset to page 1
+                    currentFilter = this.getAttribute('data-filter');
+                    currentPage = 1;
+                    
+                    // Update pagination active state
+                    pageLinks.forEach((link, index) => {
+                        link.classList.remove('active');
+                        if (index === 0) link.classList.add('active');
+                    });
+                    
+                    // Re-render announcements
+                    renderAnnouncements();
+                });
+            });
+
+            // Pagination click handlers
+            pageLinks.forEach((link, index) => {
+                link.addEventListener('click', function() {
+                    if (this.textContent === 'Next') {
+                        currentPage++;
+                    } else if (!isNaN(parseInt(this.textContent))) {
+                        currentPage = parseInt(this.textContent);
+                    }
+                    
+                    // Update pagination active state
+                    pageLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Re-render announcements
+                    renderAnnouncements();
+                });
+            });
+
+            // Initialize the page
+            renderAnnouncements();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Elections 2023</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .timer-container {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Organization Tabs */
+        .org-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .org-tab {
+            background-color: #f1f1f1;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .org-tab:hover {
+            background-color: #ddd;
+        }
+
+        .org-tab.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .election-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .election-meta {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Positions Grid */
+        .positions-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .position-section {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            padding: 20px;
+            width: 48%;
+        }
+
+        .position-section h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .candidate-card {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border: 1px solid #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .candidate-card input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .candidate-card label {
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .candidate-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .candidate-info {
+            flex: 1;
+        }
+
+        .candidate-name {
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .candidate-org {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* Submit Vote Button */
+        .submit-vote-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            transition: background-color 0.3s;
+        }
+
+        .submit-vote-btn:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        .submit-vote-btn:hover:not(:disabled) {
+            background-color: #45a049;
+        }
+
+        /* Countdown Timer */
+        #countdown {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>Campus Elections 2023</h1>
+        <p>Cast your vote for the future of our campus</p>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer-container">
+        Time remaining to vote: <span id="countdown">23:45:12</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container"> 
+        <!-- Organization Tabs -->
+        <div class="org-tabs">
+            <div class="org-tab sac active" data-org="sac">SAC</div>
+            <div class="org-tab nss" data-org="nss">NSS</div>
+            <div class="org-tab ncc" data-org="ncc">NCC</div>
+        </div>
+
+        <!-- Election Info -->
+        <div class="election-info">
+            <h2 id="currentOrgTitle">Student Affairs Council (SAC) Elections</h2>
+            <p>Please select one candidate for each position. You can change your selection until you submit your final vote.</p>
+            
+            <div class="election-meta">
+                <div><i class="fas fa-calendar-alt"></i> Election ends: October 25, 2023 at 5:00 PM</div>
+                <div><i class="fas fa-user-check"></i> Your status: <strong>Verified Voter</strong></div>
+            </div>
+        </div>
+
+        <!-- Voting Form -->
+        <form id="electionForm" method="POST">
+            <div class="positions-grid" id="positionsContainer">
+                <!-- Position sections will be loaded here -->
+            </div>
+
+            <!-- Submit Vote Button -->
+            <button type="submit" id="submitVoteBtn" class="submit-vote-btn" disabled>
+                <i class="fas fa-paper-plane"></i> Submit Your Vote
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const positionsContainer = document.getElementById('positionsContainer');
+            const submitVoteBtn = document.getElementById('submitVoteBtn');
+            const countdownElement = document.getElementById('countdown');
+            const orgTabs = document.querySelectorAll('.org-tab');
+            const currentOrgTitle = document.getElementById('currentOrgTitle');
+            const electionForm = document.getElementById('electionForm');
+
+            const electionData = {
+                sac: {
+                    title: "Student Affairs Council (SAC) Elections",
+                    endTime: new Date(Date.now() + 24 * 60 * 60 * 1000),
+                    candidates: {
+                        "President": [
+                            { id: 1, name: "John Doe", image: "https://randomuser.me/api/portraits/men/32.jpg" },
+                            { id: 2, name: "Jane Smith", image: "https://randomuser.me/api/portraits/women/44.jpg" }
+                        ],
+                        "Vice President": [
+                            { id: 3, name: "Alex Johnson", image: "https://randomuser.me/api/portraits/men/12.jpg" },
+                            { id: 4, name: "Sarah Lee", image: "https://randomuser.me/api/portraits/women/62.jpg" }
+                        ],
+                        "Secretary": [
+                            { id: 5, name: "Chris Brown", image: "https://randomuser.me/api/portraits/men/52.jpg" },
+                            { id: 6, name: "Tina Williams", image: "https://randomuser.me/api/portraits/women/15.jpg" }
+                        ],
+                        "Treasurer": [
+                            { id: 7, name: "Michael Green", image: "https://randomuser.me/api/portraits/men/20.jpg" },
+                            { id: 8, name: "Rachel Adams", image: "https://randomuser.me/api/portraits/women/60.jpg" }
+                        ]
+                    }
+                },
+                nss: {
+                    title: "National Service Scheme (NSS) Elections",
+                    endTime: new Date(Date.now() + 48 * 60 * 60 * 1000),
+                    candidates: {
+                        "President": [
+                            { id: 9, name: "Samuel Jackson", image: "https://randomuser.me/api/portraits/men/23.jpg" },
+                            { id: 10, name: "Emily Clark", image: "https://randomuser.me/api/portraits/women/37.jpg" }
+                        ],
+                        "Vice President": [
+                            { id: 11, name: "Robert Carter", image: "https://randomuser.me/api/portraits/men/18.jpg" },
+                            { id: 12, name: "Victoria Young", image: "https://randomuser.me/api/portraits/women/19.jpg" }
+                        ]
+                    }
+                },
+                ncc: {
+                    title: "National Cadet Corps (NCC) Elections",
+                    endTime: new Date(Date.now() + 72 * 60 * 60 * 1000),
+                    candidates: {
+                        "President": [
+                            { id: 13, name: "Kevin Brown", image: "https://randomuser.me/api/portraits/men/55.jpg" },
+                            { id: 14, name: "Olivia Scott", image: "https://randomuser.me/api/portraits/women/53.jpg" }
+                        ]
+                    }
+                }
+            };
+
+            let activeOrg = 'sac';
+
+            function displayPositions(org) {
+                positionsContainer.innerHTML = "";
+                const positions = Object.keys(electionData[org].candidates);
+
+                positions.forEach(position => {
+                    const positionSection = document.createElement('div');
+                    positionSection.classList.add('position-section');
+                    positionSection.innerHTML = `
+                        <h3>${position}</h3>
+                        ${electionData[org].candidates[position].map(candidate => `
+                            <div class="candidate-card">
+                                <input type="radio" name="${position}" value="${candidate.id}" id="${candidate.id}">
+                                <label for="${candidate.id}">
+                                    <img src="${candidate.image}" alt="${candidate.name}" class="candidate-image">
+                                    <div class="candidate-info">
+                                        <div class="candidate-name">${candidate.name}</div>
+                                        <div class="candidate-org">${org.toUpperCase()}</div>
+                                    </div>
+                                </label>
+                            </div>
+                        `).join('')}
+                    `;
+                    positionsContainer.appendChild(positionSection);
+                });
+            }
+
+            // Update the selected organization
+            orgTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    orgTabs.forEach(tab => tab.classList.remove('active'));
+                    this.classList.add('active');
+                    activeOrg = this.dataset.org;
+                    currentOrgTitle.textContent = electionData[activeOrg].title;
+                    displayPositions(activeOrg);
+                });
+            });
+
+            // Display positions for the default org
+            displayPositions(activeOrg);
+
+            // Countdown Timer
+            setInterval(function() {
+                const now = new Date();
+                const remainingTime = electionData[activeOrg].endTime - now;
+                const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+                countdownElement.textContent = `${hours}:${minutes}:${seconds}`;
+            }, 1000);
+
+            // Enable submit button once all positions are selected
+            electionForm.addEventListener('change', function() {
+                const allSelected = Array.from(electionForm.querySelectorAll('input[type="radio"]:checked')).length === Object.keys(electionData[activeOrg].candidates).length;
+                submitVoteBtn.disabled = !allSelected;
+            });
+        });
+        // Sample function to submit vote (call this when the user clicks the submit button)
+// Sample function to submit vote (call this when the user clicks the submit button)
+async function submitVote() {
+    event.preventDefault();
+    // Collect the voter ID (can be dynamic, hardcoded for now)
+    let randomInt = Math.floor(Math.random() * 10) + 1;
+    const voterId = randomInt; // Ideally, you would have the logged-in user's ID here
+    
+    // Collect the selected votes from the form
+    const votes = [];
+    document.querySelectorAll('input[type="radio"]:checked').forEach((radio) => {
+        const position = radio.name;
+        const candidateId = parseInt(radio.value);
+        votes.push({ position, candidateId });
+    });
+
+    console.log('Submitting vote for:', { voterId, votes });  // Debugging log
+
+    // Send vote data to the server
+    try {
+        const response = await fetch('http://localhost:5000/submit-vote', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ voterId, votes }),
+        });
+
+        const data = await response.json();
+        if (response.ok) {
+            alert(data.message);  // Show success message
+            window.location.href = "voteesedi.html";  // Redirect after successful submission
+        } else {
+            alert(data.message);  // Show error message if not successful
+        }
+    } catch (error) {
+        console.error("Error submitting vote:", error);  // Debugging log
+        alert("An error occurred while submitting your vote.");
+    }
+}
+
+// Event listener for the submit button (ensure this is in place to trigger the vote submission)
+document.getElementById("submitVoteBtn").addEventListener("click", submitVote);
+
+    </script>
+</body>
+</html>

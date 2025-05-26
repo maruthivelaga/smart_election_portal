@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CampusVote - Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+     :root {
+        --primary: #232c64;
+        --primary-light: #3a4380;
+        --primary-dark: #151c4a;
+        --secondary: #f7a01d;
+        --secondary-light: #fbb147;
+        --secondary-dark: #e08c0b;
+        --white: #ffffff;
+        --light-gray: #f5f7fa;
+        --mid-gray: #e1e5ee;
+        --text-dark: #333333;
+        --text-light: #666666;
+        --success: #28a745;
+        --warning: #ffc107;
+        --danger: #dc3545;
+        --info: #17a2b8;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
+      }
+
+      body {
+        background-color: var(--light-gray);
+        color: var(--text-dark);
+        line-height: 1.6;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      .auth-container {
+        display: flex;
+        width: 100%;
+      }
+
+      .auth-left {
+        flex: 1;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        color: var(--white);
+        padding: 4rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .auth-left::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80")
+          no-repeat center center/cover;
+        opacity: 0.2;
+      }
+
+      .auth-left-content {
+        position: relative;
+        z-index: 1;
+        max-width: 600px;
+      }
+
+      .auth-logo {
+        display: flex;
+        align-items: center;
+        margin-bottom: 2rem;
+        font-size: 1.8rem;
+        font-weight: 700;
+      }
+
+      .auth-logo span {
+        color: var(--secondary);
+      }
+
+      .auth-left h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--white);
+      }
+
+      .auth-left p {
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        opacity: 0.9;
+      }
+
+      .auth-features {
+        margin-top: 3rem;
+      }
+
+      .auth-feature {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 1.5rem;
+      }
+
+      .auth-feature i {
+        font-size: 1.5rem;
+        margin-right: 1rem;
+        color: var(--secondary);
+      }
+
+      .auth-feature h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .auth-feature p {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin-bottom: 0;
+      }
+
+      .auth-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .auth-form-container {
+        width: 100%;
+        max-width: 450px;
+        background-color: var(--white);
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+      }
+
+      .auth-tabs {
+        display: flex;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid var(--mid-gray);
+      }
+
+      .tab {
+        flex: 1;
+        text-align: center;
+        padding: 1rem;
+        cursor: pointer;
+        font-weight: 600;
+        color: var(--text-light);
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .tab.active {
+        color: var(--primary);
+      }
+
+      .tab.active::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--primary);
+      }
+
+      .auth-form {
+        display: none;
+      }
+
+      .auth-form.active {
+        display: block;
+        animation: fadeIn 0.5s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        color: var(--text-dark);
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--mid-gray);
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(35, 44, 100, 0.2);
+        outline: none;
+      }
+
+      .password-input {
+        position: relative;
+      }
+
+      .password-toggle {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: var(--text-light);
+      }
+
+      .remember-forgot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .remember-me {
+        display: flex;
+        align-items: center;
+      }
+
+      .remember-me input {
+        margin-right: 0.5rem;
+      }
+
+      .forgot-password {
+        color: var(--primary);
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+
+      .forgot-password:hover {
+        text-decoration: underline;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        font-size: 1rem;
+        width: 100%;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: var(--white);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-secondary {
+        background-color: var(--secondary);
+        color: var(--white);
+      }
+
+      .btn-secondary:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      .auth-divider {
+        display: flex;
+        align-items: center;
+        margin: 1.5rem 0;
+        color: var(--text-light);
+      }
+
+      .auth-divider::before,
+      .auth-divider::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid var(--mid-gray);
+      }
+
+      .auth-divider span {
+        padding: 0 1rem;
+        font-size: 0.9rem;
+      }
+
+      .social-auth {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-social {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.75rem;
+        border: 1px solid var(--mid-gray);
+        border-radius: 6px;
+        background-color: var(--white);
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-social:hover {
+        background-color: var(--light-gray);
+      }
+
+      .btn-social i {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+      }
+
+      .auth-footer {
+        text-align: center;
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+
+      .auth-footer a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .auth-footer a:hover {
+        text-decoration: underline;
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .auth-container {
+          flex-direction: column;
+        }
+
+        .auth-left {
+          padding: 3rem 2rem;
+        }
+
+        .auth-right {
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .auth-left {
+          padding: 2rem 1.5rem;
+        }
+
+        .auth-left h1 {
+          font-size: 2rem;
+        }
+
+        .auth-right {
+          padding: 1.5rem;
+        }
+
+        .auth-form-container {
+          padding: 1.5rem;
+        }
+
+        .social-auth {
+          flex-direction: column;
+        }
+      }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <!-- Left Side -->
+    <div class="auth-left">
+      <div class="auth-left-content">
+        <div class="auth-logo">Campus<span>Vote</span></div>
+        <h1>Welcome to Campus Digital Elections</h1>
+
+        <div class="auth-features">
+          <div class="auth-feature">
+            <i class="fas fa-shield-alt"></i>
+            <div><h3>Secure Voting</h3></div>
+          </div>
+          <div class="auth-feature">
+            <i class="fas fa-mobile-alt"></i>
+            <div><h3>Vote Anywhere</h3></div>
+          </div>
+          <div class="auth-feature">
+            <i class="fas fa-chart-bar"></i>
+            <div><h3>Real-time Results</h3></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="auth-right">
+      <div class="auth-form-container">
+        <div class="auth-tabs">
+          <div class="tab active" onclick="switchTab('login')">Login</div>
+          <div class="tab" onclick="switchTab('signup')">Sign Up</div>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active">
+          <div class="form-group">
+            <label class="form-label" for="login-email">University Email</label>
+            <input type="email" id="login-email" class="form-control" placeholder="your.email@university.edu" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Password</label>
+            <div class="password-input">
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required />
+              <i class="fas fa-eye password-toggle" onclick="togglePassword('login-password', this)"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-role">Role</label>
+            <select id="login-role" class="form-control" required>
+              <option value="">Select your role</option>
+              <option value="student">Student</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="remember-forgot">
+            <div class="remember-me">
+              <input type="checkbox" id="remember-me" />
+              <label for="remember-me">Remember me</label>
+            </div>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+          <a href="mainpage.html"><button type="submit" class="btn btn-primary">Login</button></a>
+        
+          <div class="auth-divider"><span>OR</span></div>
+        
+          <div class="social-auth">
+            <a href="https://accounts.google.com/AccountChooser/signinchooser?service=mail&ddm=1&flowName=GlifWebSignIn&flowEntry=AccountChooser">
+              <i class="fab fa-google"></i> Google
+            </a>
+            &amp;
+            <a href ="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?scope=service%3A%3Aaccount.microsoft.com%3A%3AMBI_SSL+openid+profile+offline_access&response_type=code&client_id=81feaced-5ddd-41e7-8bef-3e20a2689bb7&redirect_uri=https%3A%2F%2Faccount.microsoft.com%2Fauth%2Fcomplete-signin-oauth&client-request-id=827589c5-e511-41a0-b9b3-6531ef6a4f75&x-client-SKU=MSAL.Desktop&x-client-Ver=4.66.1.0&x-client-OS=Windows+Server+2019+Datacenter&prompt=login&client_info=1&state=H4sIAAAAAAAEAA3GzbpCQAAA0Hdp2wJRxqJFDNMIw-TnY1fRMIkQ4envPauzEZD_eGsittWl79cYLG53BYmBA9qgyedLS8sMTIGcyHkszn1CP4Qii5DdwRctvfVqUKnLt4Y8-3gEKTw9dxCoD4lFSjUzU9dsy7SVIGAaR6o4c2er2-iacoIu-KoNTeMUOBeN-A6apirYgvTfqTRoweJX-EV73vpGs2xlLSUwrEMpP42jLgUq_OWYJLd9R91qHdKLUpurgzs16OUtmVCpCMzEMjgl2TnpDlhC2RQpK0YY3z3HDV-ib8jPg_OKEB3J4NFxL0TZGt1mAUbWuz2Pc-b_vrzCu6J25enzf6nRZtOEA8xzrQR8fGZQ0Na5FYqw9IWLzgyGmmQn1g_IjsfNHwvGBmBaAQAA&msaoauth2=true&instance_aware=true&lc=1033">
+              <i class="fab fa-microsoft"></i> Microsoft
+            </a>
+          </div>
+        
+          <div class="auth-footer">
+            Don't have an account?
+            <a href="#" onclick="switchTab('signup')">Sign up</a>
+          </div>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-form">
+          <div class="form-group">
+            <label class="form-label" for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" class="form-control" placeholder="Enter your full name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-email">University Email</label>
+            <input type="email" id="signup-email" class="form-control" placeholder="your.email@university.edu" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-id">Student ID</label>
+            <input type="text" id="signup-id" class="form-control" placeholder="Enter your student ID" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-department">Department</label>
+            <select id="signup-department" class="form-control" required>
+              <option value="">Select your department</option>
+              <option value="cse">Computer Science</option>
+              <option value="ece">Electronics</option>
+              <option value="mech">Mechanical</option>
+              <option value="civil">Civil</option>
+              <option value="mba">MBA</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-role">Role</label>
+            <select id="signup-role" class="form-control" required>
+              <option value="">Select your role</option>
+              <option value="student">Student</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-password">Password</label>
+            <div class="password-input">
+              <input type="password" id="signup-password" class="form-control" placeholder="Create a password" required />
+              <i class="fas fa-eye password-toggle" onclick="togglePassword('signup-password', this)"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signup-confirm-password">Confirm Password</label>
+            <div class="password-input">
+              <input type="password" id="signup-confirm-password" class="form-control" placeholder="Confirm your password" required />
+              <i class="fas fa-eye password-toggle" onclick="togglePassword('signup-confirm-password', this)"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="checkbox" id="agree-terms" required />
+            <label for="agree-terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+          </div>
+          <button type="submit" class="btn btn-primary">Create Account</button>
+        
+          <div class="auth-footer">
+            Already have an account?
+            <a href="#" onclick="switchTab('login')">Login</a>
+          </div>
+        </form>
+  <script>
+    
+    
+    const API_URL = "http://localhost:5000/VotingApp"; // Your backend base URL
+
+// Switch between login and signup tabs
+function switchTab(tab) {
+  const loginForm = document.getElementById("login-form");
+  const signupForm = document.getElementById("signup-form");
+  const loginTab = document.querySelector(".tab:nth-child(1)");
+  const signupTab = document.querySelector(".tab:nth-child(2)");
+
+  loginForm.classList.remove("active");
+  signupForm.classList.remove("active");
+  loginTab.classList.remove("active");
+  signupTab.classList.remove("active");
+
+  if (tab === "login") {
+    loginForm.classList.add("active");
+    loginTab.classList.add("active");
+  } else {
+    signupForm.classList.add("active");
+    signupTab.classList.add("active");
+  }
+}
+
+// Toggle password visibility
+function togglePassword(fieldId, toggleIcon) {
+  const field = document.getElementById(fieldId);
+  if (field.type === "password") {
+    field.type = "text";
+    toggleIcon.classList.remove("fa-eye");
+    toggleIcon.classList.add("fa-eye-slash");
+  } else {
+    field.type = "password";
+    toggleIcon.classList.remove("fa-eye-slash");
+    toggleIcon.classList.add("fa-eye");
+  }
+}
+
+// LOGIN HANDLER
+document.getElementById("login-form").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value.trim();
+  const role = document.getElementById("login-role").value;
+
+  if (!email || !password || !role) {
+    return alert("Please fill in all fields.");
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5000/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({ email, password, role }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.message || "Login failed");
+    }
+
+    // Save token to local storage
+    localStorage.setItem("authToken", data.token);
+
+    alert("Login successful!");
+
+    // Redirect based on role
+    if (role === "admin") {
+      window.location.href = "admin.html";
+    } else {
+      window.location.href = "mainpage.html";
+    }
+  } catch (err) {
+    alert("Error: " + err.message);
+  }
+});
+document.getElementById("signup-form").addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById("signup-name").value;
+    const email = document.getElementById("signup-email").value;
+    const studentId = document.getElementById("signup-id").value;
+    const department = document.getElementById("signup-department").value;
+    const role = document.getElementById("signup-role").value;
+    const password = document.getElementById("signup-password").value;
+    const confirmPassword = document.getElementById("signup-confirm-password").value;
+
+    if (password !== confirmPassword) {
+      return alert("Passwords do not match.");
+    }
+
+    try {
+      const res = await fetch(`http://localhost:5000/signup`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          studentId,
+          department,
+          role,
+          password,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+
+      alert(data.message);
+      switchTab("login"); // Automatically go to login tab after successful signup
+    } catch (err) {
+      alert("Signup error: " + err.message);
+    }
+  });
+</script>
+</body>
+</html>
