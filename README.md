@@ -1,0 +1,1 @@
+# smart_election_portal
